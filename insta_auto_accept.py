@@ -9,7 +9,7 @@ sleep_duration = 5
 username = creds.username
 password = creds.password
 driver = webdriver.Chrome(creds.driver)
-wait = WebDriverWait(driver, 10)
+wait = WebDriverWait(driver, 5)
 
 def login():
     #driver.maximize_window()
@@ -39,13 +39,16 @@ def accept():
     confirm_button.click()
     print("Request accepted.")
 
+def refresh():
+    driver.get("https://www.instagram.com/accounts/activity/")
+
 
 login()
-follow_list()
 while True:
     try:
+        follow_list()
         accept()
     except:
         print(f"No follow requests, trying again in {sleep_duration} seconds.")
     time.sleep(sleep_duration)
-    driver.refresh()
+    refresh()
